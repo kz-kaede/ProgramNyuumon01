@@ -101,14 +101,17 @@ void player_move(void) {
 	double v0y = 10;
 	double ay = 5;
 	static double t = 0;
-	if (GetKey(KEY_INPUT_SPACE) != 0 && p.grounded == TRUE) {
-		t = 1;
-		p.phy.prex = p.x;
-		p.grounded = FALSE;
+	if (GetKey(KEY_INPUT_SPACE) != 0) {
+		if (p.grounded == TRUE) {
+
+			t++;
+			t = 1;
+			p.phy.prex = p.x;
+			p.grounded = FALSE;
+		}
 	}
 	if (t != 0 && t < 100) {
 		p.y = p.phy.prex + v0y * t + ay * (t * t);
-		t++;
 	}
 }
 
