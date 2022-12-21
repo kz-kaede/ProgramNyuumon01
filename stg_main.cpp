@@ -27,6 +27,7 @@ void Game_Initialize() {
 	p.x = 200;
 	p.y = 350;
 	p.speed = 8;
+	p.jump_flug = e_falling;
 
 	e.hp_max = 1000;
 	e.hp = e.hp_max;
@@ -95,7 +96,7 @@ void Game_Main() {
 //----------------------------------
 void PrintDebug(void) {
 	printfDx("\n\n\n\n");
-	printfDx("player = %d\tp.state = %d\np.muteki_count = %d\n", p.hp, p.state, p.muteki_count);
+	printfDx("player = %d\tp.state = %d\np.muteki_count = %d\tjump_flug = %d\n", p.hp, p.state, p.muteki_count,p.jump_flug);
 	printfDx("boss.x %d\tboss.y %d\tboss_hp %d\n", (int)e.x, (int)e.y, boss.hp);
 	printfDx("boss.phy.flag %d\tboss.phy.count %d\tboss.phy.set_t %d\n", boss.phy.flag, boss.phy.count, boss.phy.set_t);
 	printfDx("p.x %d\tp.y %d\tp_hp %d\n", (int)p.x, (int)p.y, p.hp);

@@ -98,20 +98,49 @@ void player_move(void) {
 			}
 		}
 	}
-	double v0y = 10;
-	double ay = 5;
-	static double t = 0;
-	if (GetKey(KEY_INPUT_SPACE) != 0) {
-		if (p.grounded == TRUE) {
 
-			t++;
-			t = 1;
-			p.phy.prex = p.x;
-			p.grounded = FALSE;
+	double v0y = 2.3;
+	double ay = -0.1;
+	static double t = 0;
+	int y_add;
+
+	if(p.jump_flug != e_grounded)t++;
+
+	if (GetKey(KEY_INPUT_SPACE) == 1) {
+		p.phy.prex = p.x;
+		p.jump_count++;
+		t = 0;
+		p.jump_flug = e_jumping;
+	}
+	if (p.jump_flug == e_jumping) {
+		y_add = v0y * t + ay * (t * t);
+
+		if (y_add >= 0) {
+			for (int i = 0; i < y_add; i++) {
+				p.y--;
+				if (collision_block_to_player() == TRUE) {
+					p.jump_flug = e_falling;
+					t = 0;
+					p.y++;
+					break;
+				}
+			}
+		}
+		else {
+			p.jump_flug = e_falling;
 		}
 	}
-	if (t != 0 && t < 100) {
-		p.y = p.phy.prex + v0y * t + ay * (t * t);
+	if (p.jump_flug == e_falling) {
+		y_add = ay/3 * (t * t);
+		for (int i = 0; i > y_add; i--) {
+			p.y++;
+			if (collision_block_to_player() == TRUE) {
+				//p.jump_flug = e_grounded;
+				t = 0;
+				p.y--;
+				break;
+			}
+		}
 	}
 }
 
