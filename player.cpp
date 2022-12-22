@@ -38,30 +38,31 @@ void calc_player() {
 void player_move(void) {
 	double Fx = 0;//力を定義
 	double Fy = 0;//力を定義
+	double dash = 1.0;//力を定義
 	//空気抵抗
 	Fx += p.phy.vx * -0.06;
 
 	if (p.jump_state == e_grounded) {
 		//摩擦力
 		if (p.phy.vx > 0) {
-			Fx += -1;
+			Fx += -0.5;
 		}
 		else if (p.phy.vx < 0) {
-			Fx += 1;
+			Fx += 0.5;
 		}
 	}
-
+	if (GetKey(KEY_INPUT_LSHIFT) != 0)dash = 1.5;//Shiftキーでダッシュ
 	if (GetKey(KEY_INPUT_D) != 0) {
 		p.turn = FALSE;
 		if (p.jump_state == e_grounded)//着地しているとき
-			Fx += 2.5;
+			Fx += 1.5 * dash;
 		else
 			Fx += 1;
 	}
 	if (GetKey(KEY_INPUT_A) != 0) {
 		p.turn = TRUE;
 		if (p.jump_state == e_grounded)
-			Fx += -2.5;
+			Fx += -1.5 * dash;
 		else
 			Fx += -1;
 	}
@@ -191,23 +192,21 @@ void draw_player(void) {
 	}
 
 
-	if (p.jump_count > 1) {
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 32);
+	if (p.jump_count >= 2) {
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 44);
 		DrawRotaGraphF((float)p.buff_x[4] + camera_x, (float)p.buff_y[4], 1.0f, 0.0f, p.img, TRUE, p.turn == TRUE ? TRUE : FALSE);
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 36);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 44);
 		DrawRotaGraphF((float)p.buff_x[3] + camera_x, (float)p.buff_y[3], 1.0f, 0.0f, p.img, TRUE, p.turn == TRUE ? TRUE : FALSE);
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 40);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 44);
 		DrawRotaGraphF((float)p.buff_x[2] + camera_x, (float)p.buff_y[2], 1.0f, 0.0f, p.img, TRUE, p.turn == TRUE ? TRUE : FALSE);
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 44);
 		DrawRotaGraphF((float)p.buff_x[1] + camera_x, (float)p.buff_y[1], 1.0f, 0.0f, p.img, TRUE, p.turn == TRUE ? TRUE : FALSE);
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 64);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 44);
 		DrawRotaGraphF((float)p.buff_x[0] + camera_x, (float)p.buff_y[0], 1.0f, 0.0f, p.img, TRUE, p.turn == TRUE ? TRUE : FALSE);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
 	DrawRotaGraphF((float)p.x + camera_x, (float)p.y, 1.0f, 0.0f, p.img, TRUE, p.turn == TRUE ? TRUE : FALSE);
-
-
-	RedBlinkDrawRotaGraphF((float)p.x + camera_x, (float)p.y, p.img, p.muteki_count, 6);	//自機を赤点滅させる
+	RedBlinkDrawRotaGraphF((float)p.x + camera_x, (float)p.y, p.img, p.muteki_count, 6,p.turn == TRUE ? TRUE : FALSE);	//自機を赤点滅させる
 }
 
 //void collision_shot_to_enemy(void) {

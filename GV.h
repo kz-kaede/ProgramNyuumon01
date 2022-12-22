@@ -18,6 +18,7 @@ GLOBAL int color_red;
 GLOBAL int img_bullet[20][10];
 GLOBAL int img_pshot[3];//自機ショット用画像(49)
 GLOBAL int img_boss[8];//ボス画像
+GLOBAL int img_back[20];//背景用画像
 
 
 

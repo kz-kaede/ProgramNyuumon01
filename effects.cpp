@@ -2,7 +2,7 @@
 #include "effects.h"
 
 //赤点滅
-void RedBlinkDrawRotaGraphF(float x, float y, int GrHandle, int time, int BlinkCycle) {
+void RedBlinkDrawRotaGraphF(float x, float y, int GrHandle, int time, int BlinkCycle,int ReversXFlag ) {
 	if (time == 0) return;
 	if (time != 0 && time < 21) {
 		if (time % BlinkCycle <= BlinkCycle / 2) {
@@ -11,7 +11,7 @@ void RedBlinkDrawRotaGraphF(float x, float y, int GrHandle, int time, int BlinkC
 		else {
 			SetDrawBright(255, 255, 255);	//画面の色を元に戻す
 		}
-		DrawRotaGraphF(x, y, 1.0f, 0.0f, GrHandle, TRUE);	//画像の描画
+		DrawRotaGraphF(x, y, 1.0f, 0.0f, GrHandle, TRUE, ReversXFlag);	//画像の描画
 		SetDrawBright(255, 255, 255);		//画面の色をリセット
 	}
 }

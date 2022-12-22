@@ -42,7 +42,7 @@ typedef struct {
 	//フラグ、種類、カウンタ、どの敵から発射されたかの番号、色
 	int isSet, kind, cnt, num;
 	//ベース角度、ベーススピード
-	double base_angle[1], base_spd[1];
+	double base_angle[1], base_speed[1];
 	bullet_t bullet[ESHOT_BULLET_MAX];
 }eshot_t;
 
@@ -51,7 +51,7 @@ typedef struct {
 	//フラグ、種類、カウンタ、どの敵から発射されたかの番号、色
 	int isSet, kind, count, num;
 	//ベース角度、ベーススピード
-	double base_angle[10], base_spd[1];
+	double base_angle[10], base_speed[1];
 	bullet_t bullet[BOSS_BULLET_MAX];
 	bullet_t assist[6];
 }boss_shot_t;
@@ -93,7 +93,6 @@ typedef struct {
 	//BGMの再生フラグ、再生ハンドル、いつならすか再生種類番号をいれる、ループ位置
 	int flag, handle, knd[2], loop_pos[2];
 }bgm_t;
-
 
 typedef enum {
 	e_grounded,

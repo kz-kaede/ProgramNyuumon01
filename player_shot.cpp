@@ -24,9 +24,9 @@ void enter_shot() {
 	if (GetKey(KEY_INPUT_J) > 0) {
 		p.shot_count++;
 		if (p.shot_count % 3 == 0) {//3ƒJƒEƒ“ƒg‚É1‰ñ
-			if (GetKey(KEY_INPUT_LSHIFT) > 0)//’á‘¬ˆÚ“®’†‚È‚ç
-				ch1_shot_pattern();
-			else
+			//if (GetKey(KEY_INPUT_LSHIFT) > 0)//’á‘¬ˆÚ“®’†‚È‚ç
+			//	ch1_shot_pattern();
+			//else
 				ch0_shot_pattern();
 		}
 	}

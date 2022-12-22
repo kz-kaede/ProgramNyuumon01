@@ -199,6 +199,7 @@ void game_load_img() {
 	img_boss[1] = LoadGraph("kabocha_angry.png");
 	img_boss[2] = LoadGraph("kabocha_angry.png");
 	img_boss[3] = LoadGraph("kabocha_angry.png");
+	img_back[0] = LoadGraph("dat/img/background/back_01.jpg");
 
 
 

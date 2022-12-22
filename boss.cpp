@@ -164,7 +164,7 @@ void draw_boss() {
 	if (boss.exists == FALSE)return;
 	//draw_boss_effect();
 	DrawRotaGraphF((float)boss.dx + (float)camera_x, (float)boss.dy,1.0f, 0.0f, img_boss[boss.kind], TRUE);
-	RedBlinkDrawRotaGraphF((float)boss.dx + (float)camera_x, (float)boss.dy, img_boss[boss.kind], boss.muteki_count, 6);	//自機を赤点滅させる
+	RedBlinkDrawRotaGraphF((float)boss.dx + (float)camera_x, (float)boss.dy, img_boss[boss.kind], boss.muteki_count, 6,FALSE);	//自機を赤点滅させる
 
 	if (boss.hp_max == 0) { printfDx("draw_boss内0割り\n"); return; }
 
