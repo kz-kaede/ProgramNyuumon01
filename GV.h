@@ -25,15 +25,11 @@ GLOBAL int img_boss[8];//ボス画像
 GLOBAL int func_state, stage_count, count, stage;	//関数制御用変数
 GLOBAL int se_flag[SE_MAX];			//サウンドフラグ
 
-GLOBAL enum {
-	e_grounded,
-	e_jumping,
-	e_falling,
-};
 
 GLOBAL player_t p;
 GLOBAL enemy_t e;
 GLOBAL boss_t boss;//ボス情報
+GLOBAL e_jump_t e_jump;
 
 GLOBAL pshot_t pshot[PSHOT_MAX];//プレイヤーの弾を宣言
 GLOBAL eshot_t eshot[ESHOT_MAX];//敵の弾を宣言

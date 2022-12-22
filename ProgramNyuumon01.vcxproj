@@ -141,7 +141,6 @@
     <ClCompile Include="boss_shot_pattern.cpp" />
     <ClCompile Include="collision_main.cpp" />
     <ClCompile Include="config.cpp" />
-    <ClCompile Include="drawgra.cpp" />
     <ClCompile Include="draw_back_main.cpp" />
     <ClCompile Include="draw_main.cpp" />
     <ClCompile Include="effects.cpp" />

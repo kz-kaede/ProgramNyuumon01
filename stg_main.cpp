@@ -97,8 +97,8 @@ void Game_Main() {
 //----------------------------------
 void PrintDebug(void) {
 	printfDx("\n\n\n\n");
-	printfDx("player = %d\tp.state = %d\tp.phy.vx = %f\np.muteki_count = %d\tjump_state = %d\n",
-		p.hp, p.state,p.phy.vx, p.muteki_count,p.jump_state);
+	printfDx("player = %d\tp.state = %d\tp.phy.vx = %d\np.muteki_count = %d\tjump_state = %d\n",
+		p.hp, p.state,(int)p.phy.vx, p.muteki_count,p.jump_state);
 	printfDx("boss.x %d\tboss.y %d\tboss_hp %d\n", (int)e.x, (int)e.y, boss.hp);
 	printfDx("boss.phy.flag %d\tboss.phy.count %d\tboss.phy.set_t %d\n", boss.phy.flag, boss.phy.count, boss.phy.set_t);
 	printfDx("p.x %d\tp.y %d\tp_hp %d\n", (int)p.x, (int)p.y, p.hp);

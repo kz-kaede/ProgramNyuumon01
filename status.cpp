@@ -8,7 +8,7 @@ void player_hp_bar() {
 	int y1 = 50;
 	int	y2 = 60;
 
-	hp_bar = (double)p.hp / (double)p.hp_max * ((double)BarWidthMax * (double)lines);	//HPをバーの長さに変換
+	hp_bar = (int)((double)p.hp / (double)p.hp_max * ((double)BarWidthMax * (double)lines));	//HPをバーの長さに変換
 
 	for (int i = lines; 0 < i; i--) {		//HPバーの本数からデクリメント
 		if (hp_bar >= BarWidthMax * i) {		//下からi番目のHPバーが、そのバーの最大値以上なら
@@ -39,7 +39,7 @@ void boss_hp_bar() {
 	int y1 = 50;
 	int	y2 = 60;
 
-	hp_bar = (double)boss.hp / (double)boss.hp_max * ((double)BarWidthMax * (double)lines);	//HPをバーの長さに変換
+	hp_bar = (int)((double)boss.hp / (double)boss.hp_max * ((double)BarWidthMax * (double)lines));	//HPをバーの長さに変換
 
 	for (int i = lines; 0 < i; i--) {		//HPバーの本数からデクリメント
 		if (hp_bar >= BarWidthMax * i) {		//下からi番目のHPバーが、そのバーの最大値以上なら

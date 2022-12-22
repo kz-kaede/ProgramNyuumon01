@@ -1,10 +1,5 @@
 #pragma once
 
-////プレイヤーに関する構造体
-//typedef struct {
-//	int img, hit_handle, hit, hit_time, hp_max, hp, shot_count;
-//	double x, y, speed;
-//}player_t;
 //物理的計算を行う為の構造体
 typedef struct {
 	int flag, count, set_t;
@@ -15,7 +10,7 @@ typedef struct {
 typedef struct {
 	bool turn,isHit;
 	int state, img, count, power, muteki_count, num, hp_max, hp, slow, shot_count, jump_count, jump_state;
-	double x, y, speed;
+	double x, y,buff_x[5],buff_y[5], speed;
 	phy_t phy;
 }player_t;
 
@@ -24,12 +19,6 @@ typedef struct {
 	int img, hit, hit_time, hp_max, hp;
 	double x, y;
 }enemy_t;
-
-////弾に関する構造体
-//typedef struct {
-//	int handle, exists, x, y, velocity, vx, vy, damage, set_time, count;
-//	//double;
-//}bullet_t;
 
 //弾に関する構造体
 typedef struct {
@@ -106,7 +95,11 @@ typedef struct {
 }bgm_t;
 
 
-
+typedef enum {
+	e_grounded,
+	e_jumping,
+	e_falling,
+}e_jump_t;
 
 ////弾のパラメータ
 //typedef struct {

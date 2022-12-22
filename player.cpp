@@ -39,7 +39,7 @@ void player_move(void) {
 	double Fx = 0;//力を定義
 	double Fy = 0;//力を定義
 	//空気抵抗
-	Fx += p.phy.vx * -0.1;
+	Fx += p.phy.vx * -0.06;
 
 	if (p.jump_state == e_grounded) {
 		//摩擦力
@@ -106,36 +106,25 @@ void player_move(void) {
 		}
 	}
 
-	//if (GetKey(KEY_INPUT_W) != 0) {
-	//	for (int i = 0; i < p.speed; i++) {
-	//		p.y--;
-	//		if (p.y < 16 ||
-	//			collision_block_to_player() == TRUE) {
-	//			p.y++;
-	//			break;
-	//		}
-	//	}
-	//}
-	//if (GetKey(KEY_INPUT_S) != 0) {
-	//	for (int i = 0; i < p.speed; i++) {
-	//		p.y++;
-	//		if (p.y > STAGE_HEIGHT * 32 - 16 ||
-	//			collision_block_to_player() == TRUE) {
-	//			p.y--;
-	//			break;
-	//		}
-	//	}
-	//}
+	if (GetKey(KEY_INPUT_S) != 0) {
+		for (int i = 0; i < p.speed; i++) {
+			p.y++;
+			if (p.y > STAGE_HEIGHT * 32 - 16 ||
+				collision_block_to_player() == TRUE) {
+				p.y--;
+				break;
+			}
+		}
+	}
 
 	p.phy.v0y = 2.3;
 	p.phy.ay = -0.1;
 	static double t = 0;
-	int y_add;
+	double y_add;
 
 	t++;
 
 	if (GetKey(KEY_INPUT_SPACE) == 1 && p.jump_count < 2) {
-		p.phy.prex = p.x;
 		p.jump_count++;
 		t = 0;
 		p.jump_state = e_jumping;
@@ -144,7 +133,7 @@ void player_move(void) {
 		y_add = p.phy.v0y * t + p.phy.ay * (t * t);
 
 		if (y_add >= 0) {
-			for (int i = 0; i < y_add; i++) {
+			for (int i = 0; i < (int)y_add; i++) {
 				p.y--;
 				if (collision_block_to_player() == TRUE) {
 					p.jump_state = e_falling;
@@ -159,8 +148,9 @@ void player_move(void) {
 		}
 	}
 	if (p.jump_state == e_falling || p.jump_state == e_grounded) {
+
 		y_add = p.phy.ay / 4 * (t * t);
-		for (int i = 0; i > y_add; i--) {
+		for (int i = 0; i > (int)y_add; i--) {
 			p.y++;
 			if (collision_block_to_player() == TRUE) {
 				p.jump_state = e_grounded;
@@ -175,15 +165,46 @@ void player_move(void) {
 
 //自機の描画
 void draw_player(void) {
+	int t;
 	if (p.hp == 0) return;
 
+	t = count % 5;
+	if (t < 1) {
+		p.buff_x[0] = p.x;
+		p.buff_y[0] = p.y;
+	}
+	else if (t < 2) {
+		p.buff_x[1] = p.x;
+		p.buff_y[1] = p.y;
+	}
+	else if (t < 3) {
+		p.buff_x[2] = p.x;
+		p.buff_y[2] = p.y;
+	}
+	else if (t < 4) {
+		p.buff_x[3] = p.x;
+		p.buff_y[3] = p.y;
+	}
+	else if (t < 5) {
+		p.buff_x[4] = p.x;
+		p.buff_y[4] = p.y;
+	}
 
-	if (p.turn == TRUE) {
-		DrawRotaGraphF((float)p.x + camera_x, (float)p.y, 1.0f, 0.0f, p.img, TRUE, TRUE);
+
+	if (p.jump_count > 1) {
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 32);
+		DrawRotaGraphF((float)p.buff_x[4] + camera_x, (float)p.buff_y[4], 1.0f, 0.0f, p.img, TRUE, p.turn == TRUE ? TRUE : FALSE);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 36);
+		DrawRotaGraphF((float)p.buff_x[3] + camera_x, (float)p.buff_y[3], 1.0f, 0.0f, p.img, TRUE, p.turn == TRUE ? TRUE : FALSE);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 40);
+		DrawRotaGraphF((float)p.buff_x[2] + camera_x, (float)p.buff_y[2], 1.0f, 0.0f, p.img, TRUE, p.turn == TRUE ? TRUE : FALSE);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 44);
+		DrawRotaGraphF((float)p.buff_x[1] + camera_x, (float)p.buff_y[1], 1.0f, 0.0f, p.img, TRUE, p.turn == TRUE ? TRUE : FALSE);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 64);
+		DrawRotaGraphF((float)p.buff_x[0] + camera_x, (float)p.buff_y[0], 1.0f, 0.0f, p.img, TRUE, p.turn == TRUE ? TRUE : FALSE);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
-	else {
-		DrawRotaGraphF((float)p.x + camera_x, (float)p.y, 1.0f, 0.0f, p.img, TRUE, FALSE);
-	}
+	DrawRotaGraphF((float)p.x + camera_x, (float)p.y, 1.0f, 0.0f, p.img, TRUE, p.turn == TRUE ? TRUE : FALSE);
 
 
 	RedBlinkDrawRotaGraphF((float)p.x + camera_x, (float)p.y, p.img, p.muteki_count, 6);	//自機を赤点滅させる
