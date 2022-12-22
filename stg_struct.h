@@ -14,7 +14,7 @@ typedef struct {
 //プレイヤーに関する構造体
 typedef struct {
 	bool turn,isHit;
-	int state, img, count, power, muteki_count, num, hp_max, hp, slow, shot_count, jump_count, jump_flug;
+	int state, img, count, power, muteki_count, num, hp_max, hp, slow, shot_count, jump_count, jump_state;
 	double x, y, speed;
 	phy_t phy;
 }player_t;

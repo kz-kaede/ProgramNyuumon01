@@ -7,10 +7,12 @@ typedef struct {
 
 typedef struct block{
 	char air[3] = "--";
+	char ground[3] = "b0";
 	char stone[3] = "b2";
 	char dirt[3] = "b1";
 	char grass[3] = "b3";
 	char gold[3] = "b4";
+	char steps_01[3] = "s1";
 	char bricks[3] = "b5";
 	char hatena[3] = "q1";
 	char player[3] = "p0";
@@ -40,7 +42,8 @@ typedef struct {
 }pic_t;
 
 typedef struct{
-	int w, h, kind, ani, d, if_player,jump;
+	int w, h, ani, d, if_player,jump;
+	char kind[3];
 	double x, y, angle;
 	pic_t img[e_Ani_Total];
 }ract_t;

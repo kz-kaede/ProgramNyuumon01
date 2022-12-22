@@ -36,10 +36,39 @@ void calc_player() {
 }
 
 void player_move(void) {
+	double Fx = 0;//—Í‚ð’è‹`
+	double Fy = 0;//—Í‚ð’è‹`
+	//‹ó‹C’ïR
+	Fx += p.phy.vx * -0.1;
+
+	if (p.jump_state == e_grounded) {
+		//–€ŽC—Í
+		if (p.phy.vx > 0) {
+			Fx += -1;
+		}
+		else if (p.phy.vx < 0) {
+			Fx += 1;
+		}
+	}
+
 	if (GetKey(KEY_INPUT_D) != 0) {
 		p.turn = FALSE;
-
-		for (int i = 0; i < p.speed; i++) {
+		if (p.jump_state == e_grounded)//’…’n‚µ‚Ä‚¢‚é‚Æ‚«
+			Fx += 2.5;
+		else
+			Fx += 1;
+	}
+	if (GetKey(KEY_INPUT_A) != 0) {
+		p.turn = TRUE;
+		if (p.jump_state == e_grounded)
+			Fx += -2.5;
+		else
+			Fx += -1;
+	}
+	p.phy.ax = Fx;
+	p.phy.vx += p.phy.ax;
+	if (p.phy.vx > 0) {
+		for (int i = 0; i < (int)p.phy.vx; i++) {
 			p.x++;;
 			if (p.x > WINDOW_SIZE_W / 2 &&
 				p.x < STAGE_WIDTH * 32 - WINDOW_SIZE_W / 2) {
@@ -57,10 +86,8 @@ void player_move(void) {
 			}
 		}
 	}
-	if (GetKey(KEY_INPUT_A) != 0) {
-		p.turn = TRUE;
-
-		for (int i = 0; i < p.speed; i++) {
+	if (p.phy.vx < 0) {
+		for (int i = 0; i > (int)p.phy.vx; i--) {
 			p.x--;;
 			if (p.x > WINDOW_SIZE_W / 2 &&
 				p.x < STAGE_WIDTH * 32 - WINDOW_SIZE_W / 2) {
@@ -78,48 +105,49 @@ void player_move(void) {
 			}
 		}
 	}
-	if (GetKey(KEY_INPUT_W) != 0) {
-		for (int i = 0; i < p.speed; i++) {
-			p.y--;
-			if (p.y < 16 ||
-				collision_block_to_player() == TRUE) {
-				p.y++;
-				break;
-			}
-		}
-	}
-	if (GetKey(KEY_INPUT_S) != 0) {
-		for (int i = 0; i < p.speed; i++) {
-			p.y++;
-			if (p.y > STAGE_HEIGHT * 32 - 16 ||
-				collision_block_to_player() == TRUE) {
-				p.y--;
-				break;
-			}
-		}
-	}
 
-	double v0y = 2.3;
-	double ay = -0.1;
+	//if (GetKey(KEY_INPUT_W) != 0) {
+	//	for (int i = 0; i < p.speed; i++) {
+	//		p.y--;
+	//		if (p.y < 16 ||
+	//			collision_block_to_player() == TRUE) {
+	//			p.y++;
+	//			break;
+	//		}
+	//	}
+	//}
+	//if (GetKey(KEY_INPUT_S) != 0) {
+	//	for (int i = 0; i < p.speed; i++) {
+	//		p.y++;
+	//		if (p.y > STAGE_HEIGHT * 32 - 16 ||
+	//			collision_block_to_player() == TRUE) {
+	//			p.y--;
+	//			break;
+	//		}
+	//	}
+	//}
+
+	p.phy.v0y = 2.3;
+	p.phy.ay = -0.1;
 	static double t = 0;
 	int y_add;
 
-	if(p.jump_flug != e_grounded)t++;
+	t++;
 
-	if (GetKey(KEY_INPUT_SPACE) == 1) {
+	if (GetKey(KEY_INPUT_SPACE) == 1 && p.jump_count < 2) {
 		p.phy.prex = p.x;
 		p.jump_count++;
 		t = 0;
-		p.jump_flug = e_jumping;
+		p.jump_state = e_jumping;
 	}
-	if (p.jump_flug == e_jumping) {
-		y_add = v0y * t + ay * (t * t);
+	if (p.jump_state == e_jumping) {
+		y_add = p.phy.v0y * t + p.phy.ay * (t * t);
 
 		if (y_add >= 0) {
 			for (int i = 0; i < y_add; i++) {
 				p.y--;
 				if (collision_block_to_player() == TRUE) {
-					p.jump_flug = e_falling;
+					p.jump_state = e_falling;
 					t = 0;
 					p.y++;
 					break;
@@ -127,15 +155,16 @@ void player_move(void) {
 			}
 		}
 		else {
-			p.jump_flug = e_falling;
+			p.jump_state = e_falling;
 		}
 	}
-	if (p.jump_flug == e_falling) {
-		y_add = ay/3 * (t * t);
+	if (p.jump_state == e_falling || p.jump_state == e_grounded) {
+		y_add = p.phy.ay / 4 * (t * t);
 		for (int i = 0; i > y_add; i--) {
 			p.y++;
 			if (collision_block_to_player() == TRUE) {
-				//p.jump_flug = e_grounded;
+				p.jump_state = e_grounded;
+				p.jump_count = 0;
 				t = 0;
 				p.y--;
 				break;

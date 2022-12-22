@@ -114,7 +114,7 @@ int collision_bossshot_to_player(int n) {
 
 //敵ショットと自機との処理
 void collision_enemyshot_to_player() {
-	if (boss.kind == boss.danmaku_num[0]+1)return;
+	if (boss.kind == boss.danmaku_num[0] + 1)return;
 
 	int s, n;
 	//if (p.state == 0 && p.muteki_count == 0 && out_lazer() == 1) {
@@ -199,11 +199,19 @@ void hit_player(int damage) {
 //プレイヤーとブロックの接触判定
 int collision_block_to_player() {
 	for (int i = 0; i < STAGE_TOTAL; i++) {
-		if (Block[i].x - 32 < p.x && p.x < Block[i].x + 32 &&
-			Block[i].y - 32 < p.y && p.y < Block[i].y + 32) {
-
-
-			return TRUE;
+		if (strcmp(Block[i].kind, b_type.steps_01) != 0) {//足場ブロック以外のとき
+			if (Block[i].x - Block[i].w < p.x && p.x < Block[i].x + Block[i].w &&
+				Block[i].y - Block[i].h < p.y && p.y < Block[i].y + Block[i].h) {
+				return TRUE;
+			}
+		}
+		else if ((p.jump_state == e_falling || p.jump_state == e_grounded) &&
+			GetKey(KEY_INPUT_S) == 0) {//足場ブロックのとき
+			if (Block[i].x - Block[i].w < p.x && p.x < Block[i].x + Block[i].w &&
+				Block[i].y - Block[i].h < p.y && p.y < Block[i].y - Block[i].h + 5) {
+				p.y = Block[i].y - Block[i].h + 1;//範囲内ならプレイヤーのy座標を足場ブロック上面のy座標に強制変更
+				return TRUE;
+			}
 		}
 	}
 	return FALSE;

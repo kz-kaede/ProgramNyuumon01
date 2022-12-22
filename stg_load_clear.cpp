@@ -12,11 +12,12 @@ void LoadGraErrCheck(int GrHandle, const char* FileName) {
 
 //空気ブロックのとき
 void Block_Ini(ract_t* b) {
+	
+	strcpy_s(b->kind, sizeof(b->kind), b_type.air);
 	b->x = 0;
 	b->y = 0;
 	b->w = 0;
 	b->h = 0;
-	b->kind = 0;
 	b->angle = 0;
 
 	for (int i = 0; i < e_Ani_Total; i++) {
@@ -32,6 +33,7 @@ void Block_Ini(ract_t* b) {
 }
 
 void game_load_stage() {
+
 
 	char name[] = { "dat/stage/1-1.txt" };
 	FILE* fp = NULL;
@@ -82,6 +84,11 @@ void game_load_stage() {
 				Stage[x][y].x = 0;
 				Stage[x][y].y = 0;
 			}
+			if (strcmp(b_kind[x][y].type, b_type.ground) == 0) {
+				Block[i].img[0].img = LoadGraph("dat/img/block/ground.png");//ブロックの画像代入
+				Block[i].d = FALSE;//向き
+				Block[i].if_player = FALSE;//プレイヤーか否か
+			}
 			if (strcmp(b_kind[x][y].type, b_type.stone) == 0) {
 				Block[i].img[0].img = LoadGraph("dat/img/block/stone_01.png");//ブロックの画像代入
 				Block[i].d = FALSE;//向き
@@ -104,6 +111,11 @@ void game_load_stage() {
 			}
 			if (strcmp(b_kind[x][y].type, b_type.gold) == 0) {
 				Block[i].img[0].img = LoadGraph("dat/img/block/gold.png");//ブロックの画像代入
+				Block[i].d = FALSE;//向き
+				Block[i].if_player = FALSE;//プレイヤーか否か
+			}
+			if (strcmp(b_kind[x][y].type, b_type.steps_01) == 0) {
+				Block[i].img[0].img = LoadGraph("dat/img/block/step_01.png");//ブロックの画像代入
 				Block[i].d = FALSE;//向き
 				Block[i].if_player = FALSE;//プレイヤーか否か
 			}
@@ -140,7 +152,8 @@ void game_load_stage() {
 			Block[i].w = Block[i].img[0].w;
 			Block[i].h = Block[i].img[0].h;
 
-			//ブロックの座標・種類・回転角度・ジャンプカウンタを代入
+			//ブロックの種類・座標・種類・回転角度・ジャンプカウンタを代入
+			strcpy_s(Block[i].kind, sizeof(Block[i].kind), b_kind[x][y].type);
 			Block[i].x = Stage[x][y].x * 32 + 16;
 			Block[i].y = Stage[x][y].y * 32 + 16;
 			Block[i].angle = 0;
