@@ -166,6 +166,7 @@
     <ClInclude Include="define.h" />
     <ClInclude Include="effects.h" />
     <ClInclude Include="GV.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="stage_struct.h" />
     <ClInclude Include="stgfunc.h" />
     <ClInclude Include="getkey.h" />
