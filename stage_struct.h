@@ -4,6 +4,12 @@ typedef struct {
 	int r, g, b;
 }color_t;
 
+typedef enum {
+	e_Normal,
+	e_Walk1,
+	e_End,
+	e_Ani_Total,
+}e_Ani_t;
 
 typedef struct block{
 	char air[3] = "--";
@@ -19,27 +25,18 @@ typedef struct block{
 	char e1[3] = "e1";
 }block_type_t;
 
-typedef enum {
-	e_Normal,
-	e_Walk1,
-	e_End,
-	e_Ani_Total,
-}e_Ani_t;
-
-
-typedef struct {
-	char kind[3];
-	double x,y;
-} text_t;
-
 typedef struct {
 	char type[3];
-} kind_t;
-
+}kind_t;
 
 typedef struct {
 	int img,w,h;
 }pic_t;
+
+typedef struct {
+	char kind[3];
+	double x,y;
+}text_t;
 
 typedef struct{
 	int w, h, ani, d, if_player,jump;

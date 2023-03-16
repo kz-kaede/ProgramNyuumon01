@@ -36,9 +36,13 @@ void calc_player() {
 }
 
 void player_move(void) {
+	p.phy.v0y = 2.3;
+	p.phy.ay = -0.1;
+	static double t = 0;
 	double Fx = 0;//力を定義
 	double Fy = 0;//力を定義
 	double dash = 1.0;//力を定義
+	double y_add;
 	//空気抵抗
 	Fx += p.phy.vx * -0.06;
 
@@ -118,13 +122,6 @@ void player_move(void) {
 		}
 	}
 
-	p.phy.v0y = 2.3;
-	p.phy.ay = -0.1;
-	static double t = 0;
-	double y_add;
-
-	t++;
-
 	if (GetKey(KEY_INPUT_SPACE) == 1 && p.jump_count < 2) {
 		p.jump_count++;
 		t = 0;
@@ -162,6 +159,7 @@ void player_move(void) {
 			}
 		}
 	}
+	t++;
 }
 
 //自機の描画

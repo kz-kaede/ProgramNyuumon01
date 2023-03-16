@@ -45,12 +45,12 @@ GLOBAL bright_set_t bright_set; //描画の輝度
 GLOBAL int camera_x;
 GLOBAL color_t col;
 GLOBAL block_type_t b_type;
-//GLOBAL text_t Text;
 GLOBAL ract_t Ract;
 GLOBAL ract_t* Block;
 GLOBAL e_Ani_t e_Ani;
 GLOBAL text_t Text;
 GLOBAL text_t** Stage;
+GLOBAL kind_t b_kind[200][23];
 GLOBAL char Ver[10];
 GLOBAL int STAGE_TOTAL;
 GLOBAL int STAGE_WIDTH;
@@ -59,6 +59,5 @@ GLOBAL int STAGE_HEIGHT;
 
 //デバック
 GLOBAL char str[3];
-GLOBAL kind_t b_kind[200][23];
 
 

@@ -23,7 +23,6 @@ void boss_shot_bulletH000() {
         if (cnum % 4 == 3) {//4回中4回目なら
             //40＜ｘ＜FMX-40、30＜y＜120の範囲を60の距離、60カウントで移動
             move_boss_pos(40, 30, FMX - 40, 120, 60, 60);
-            printfDx("gk;:dk:;gk:;kg;:d\n");
         }
     }
     //60カウント以下で10カウントに1回

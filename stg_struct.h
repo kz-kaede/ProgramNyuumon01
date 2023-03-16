@@ -10,7 +10,7 @@ typedef struct {
 typedef struct {
 	bool turn,isHit;
 	int state, img, count, power, muteki_count, num, hp_max, hp, slow, shot_count, jump_count, jump_state;
-	double x, y,buff_x[5],buff_y[5], speed;
+	double x, y,buff_x[5],buff_y[5],speed;
 	phy_t phy;
 }player_t;
 

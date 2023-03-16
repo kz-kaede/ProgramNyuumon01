@@ -23,25 +23,12 @@ void draw_stage() {
 	for (int i = 0; i < STAGE_TOTAL; i++) {
 		switch (Block[i].d) {
 		case FALSE:
-			DrawRotaGraphF(
-				Block[i].x + camera_x,
-				Block[i].y,
-				1.0f,
-				0.0f,
-				Block[i].img[0].img,
-				TRUE,
-				FALSE);
+			DrawRotaGraphF(Block[i].x + camera_x, Block[i].y, 1.0f, 0.0f, Block[i].img[0].img, TRUE, FALSE);
 			break;
-			
+
 		case TRUE://¶•ûŒüŒü‚­
 			DrawRotaGraphF(
-				Block[i].x + camera_x,
-				Block[i].y,
-				1.0f,
-				0.0f,
-				Block[i].img[0].img,
-				TRUE,
-				TRUE);
+				Block[i].x + camera_x, Block[i].y, 1.0f, 0.0f, Block[i].img[0].img, TRUE, TRUE);
 			break;
 		}
 	}
